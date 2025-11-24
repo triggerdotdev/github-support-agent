@@ -1,0 +1,50 @@
+{
+  "configPath": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/trigger.config.mjs",
+  "tasks": [
+    {
+      "id": "ingest-docs",
+      "triggerSource": "schedule",
+      "schedule": {
+        "cron": "0 */6 * * *",
+        "timezone": "UTC"
+      },
+      "maxDuration": 3600,
+      "filePath": "src/trigger/docs.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/src/trigger/docs.mjs"
+    },
+    {
+      "id": "issue-opened",
+      "maxDuration": 3600,
+      "filePath": "src/trigger/issues.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/src/trigger/issues.mjs"
+    },
+    {
+      "id": "issue-closed",
+      "maxDuration": 3600,
+      "filePath": "src/trigger/issues.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/src/trigger/issues.mjs"
+    },
+    {
+      "id": "nightly-maintenance",
+      "triggerSource": "schedule",
+      "schedule": {
+        "cron": "0 0 * * *",
+        "timezone": "UTC"
+      },
+      "maxDuration": 3600,
+      "filePath": "src/trigger/kb.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/src/trigger/kb.mjs"
+    }
+  ],
+  "queues": [],
+  "workerEntryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/node_modules/trigger.dev/dist/esm/entryPoints/dev-run-worker.mjs",
+  "loaderEntryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-H8SV99/node_modules/trigger.dev/dist/esm/entryPoints/loader.mjs",
+  "runtime": "node",
+  "runtimeVersion": "20.19.0",
+  "customConditions": [],
+  "timings": {
+    "src/trigger/docs.ts": 124.29808400000002,
+    "src/trigger/issues.ts": 9.867374999999981,
+    "src/trigger/kb.ts": 1.4745000000000346
+  }
+}

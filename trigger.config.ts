@@ -1,20 +1,21 @@
 import { defineConfig } from "@trigger.dev/sdk";
 import { prismaExtension } from "@trigger.dev/build/extensions/prisma";
+import { PrismaInstrumentation } from "@prisma/instrumentation";
 
 export default defineConfig({
-  project: "proj_placeholder",
+  project: process.env.TRIGGER_PROJECT_REF!,
   runtime: "node",
   logLevel: "info",
+  maxDuration: 3600, // in seconds (1 hour)
   // The directories where your trigger tasks are located
   dirs: ["./src/trigger"],
+  telemetry: {
+    instrumentations: [new PrismaInstrumentation()],
+  },
   build: {
     extensions: [
       prismaExtension({
-        schema: "prisma/schema.prisma",
-        // verify we want migrations to run on build
-        migrate: true,
-        // We'll use DATABASE_URL for now, user can configure DIRECT_URL if needed
-        directUrlEnvVarName: "DATABASE_URL",
+        mode: "engine-only",
       }),
     ],
   },

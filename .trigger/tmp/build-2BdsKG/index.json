@@ -1,0 +1,50 @@
+{
+  "configPath": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/trigger.config.mjs",
+  "tasks": [
+    {
+      "id": "ingest-docs",
+      "triggerSource": "schedule",
+      "schedule": {
+        "cron": "0 */6 * * *",
+        "timezone": "UTC"
+      },
+      "maxDuration": 3600,
+      "filePath": "src/trigger/docs.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/src/trigger/docs.mjs"
+    },
+    {
+      "id": "issue-opened",
+      "maxDuration": 3600,
+      "filePath": "src/trigger/issues.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/src/trigger/issues.mjs"
+    },
+    {
+      "id": "issue-closed",
+      "maxDuration": 3600,
+      "filePath": "src/trigger/issues.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/src/trigger/issues.mjs"
+    },
+    {
+      "id": "nightly-maintenance",
+      "triggerSource": "schedule",
+      "schedule": {
+        "cron": "0 0 * * *",
+        "timezone": "UTC"
+      },
+      "maxDuration": 3600,
+      "filePath": "src/trigger/kb.ts",
+      "entryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/src/trigger/kb.mjs"
+    }
+  ],
+  "queues": [],
+  "workerEntryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/node_modules/trigger.dev/dist/esm/entryPoints/dev-run-worker.mjs",
+  "loaderEntryPoint": "/Users/eric/code/triggerdotdev/agents/github-support-agent/.trigger/tmp/build-2BdsKG/node_modules/trigger.dev/dist/esm/entryPoints/loader.mjs",
+  "runtime": "node",
+  "runtimeVersion": "20.19.0",
+  "customConditions": [],
+  "timings": {
+    "src/trigger/docs.ts": 61.59204199999999,
+    "src/trigger/issues.ts": 14.358249999999998,
+    "src/trigger/kb.ts": 1.72199999999998
+  }
+}
