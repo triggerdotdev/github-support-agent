@@ -1,0 +1,109 @@
+generator client {
+  provider        = "prisma-client"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+model Project {
+  id            String         @id @default(cuid())
+  name          String
+  githubOwner   String
+  githubRepo    String
+  githubAppId   String?
+  issues        Issue[]
+  docChunks     DocChunk[]
+  kbEntries     KbEntry[]
+  retrievalLogs RetrievalLog[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Issue {
+  id             String         @id @default(cuid())
+  project        Project        @relation(fields: [projectId], references: [id])
+  projectId      String
+  githubNumber   Int
+  title          String
+  body           String
+  state          String
+  labels         Json
+  url            String
+  classification String?
+  priority       String?
+  createdAt      DateTime
+  closedAt       DateTime?
+  messages       IssueMessage[]
+  drafts         IssueDraft[]
+  kbEntries      KbEntry[]
+  retrievalLogs  RetrievalLog[]
+}
+
+model IssueMessage {
+  id        String   @id @default(cuid())
+  issue     Issue    @relation(fields: [issueId], references: [id])
+  issueId   String
+  author    String
+  body      String
+  isBot     Boolean  @default(false)
+  createdAt DateTime
+}
+
+model IssueDraft {
+  id             String   @id @default(cuid())
+  issue          Issue    @relation(fields: [issueId], references: [id])
+  issueId        String
+  draftBody      String
+  postedToGithub Boolean  @default(false)
+  modelName      String
+  retrievalMeta  Json
+  createdAt      DateTime @default(now())
+}
+
+model DocChunk {
+  id         String                 @id @default(cuid())
+  project    Project                @relation(fields: [projectId], references: [id])
+  projectId  String
+  source     String
+  sourcePath String
+  heading    String?
+  content    String
+  hash       String
+  embedding  Unsupported("vector")?
+  createdAt  DateTime               @default(now())
+  updatedAt  DateTime               @updatedAt
+}
+
+model KbEntry {
+  id                String                 @id @default(cuid())
+  project           Project                @relation(fields: [projectId], references: [id])
+  projectId         String
+  issue             Issue?                 @relation(fields: [issueId], references: [id])
+  issueId           String?
+  questionRaw       String
+  questionCanonical String
+  answer            String
+  tags              String[]
+  sourceUrl         String?
+  embedding         Unsupported("vector")?
+  mergedIntoId      String?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+}
+
+model RetrievalLog {
+  id        String   @id @default(cuid())
+  issue     Issue?   @relation(fields: [issueId], references: [id])
+  issueId   String?
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  query     String
+  topDocIds String[]
+  topKbIds  String[]
+  rawScores Json
+  createdAt DateTime @default(now())
+}

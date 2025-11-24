@@ -6,12 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "dev:trigger": "npx trigger.dev@latest dev"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.71",
+    "@prisma/client": "^7.0.0",
+    "@trigger.dev/build": "^4.1.2",
+    "@trigger.dev/react-hooks": "^4.1.2",
+    "@trigger.dev/sdk": "^4.1.2",
+    "ai": "^5.0.101",
     "next": "16.0.3",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "prisma": "^7.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
